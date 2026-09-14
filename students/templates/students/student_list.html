@@ -1,31 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Students</title>
-</head>
-<body>
+{% extends "students/base.html" %}
 
-    <h1>Student Management System</h1>
+{% block title %}
+    Students
+{% endblock %}
+
+
+{% block content %}
 
     <h2>Students</h2>
 
     <p>Total students: {{ students|length }}</p>
 
-    {% for student in students %}
 
-        <div>
+    {% if students %}
 
-            <p>ID: {{ student.id }}</p>
+        <table border="1">
 
-            <p>Name: {{ student.name|upper }}</p>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-            <p>Age: {{ student.age }}</p>
 
-        </div>
+            <tbody>
 
-        <hr>
+                {% for student in students %}
 
-    {% endfor %}
+                    <tr>
 
-</body>
-</html>
+                        <td>{{ student.id }}</td>
+
+                        <td>{{ student.name|title }}</td>
+
+                        <td>{{ student.age }}</td>
+
+                        <td>
+                            <a href="{% url 'students:student-detail' student.id %}">
+                                View Details
+                            </a>
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p>No students found.</p>
+
+    {% endif %}
+
+{% endblock %}
