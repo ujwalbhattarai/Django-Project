@@ -1,22 +1,25 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.urls import reverse
 
 
 def student_list(request):
 
-    name = request.GET.get("name")
+    students = [
+        {"id": 1, "name": "Ram", "age": 20},
+        {"id": 2, "name": "Sita", "age": 21},
+        {"id": 3, "name": "Hari", "age": 19},
+    ]
 
-    if name:
-        return JsonResponse({
-            "message": "You searched for a student",
-            "name": name
-        })
+    return render(
+        request,
+        "students/student_list.html",
+        {"students": students}
+    )
 
-    return JsonResponse({
-        "message": "Student list"
-    })
 
 def student_detail(request, student_id):
+
     url = reverse("students:student-detail", args=[student_id])
 
     return JsonResponse({
