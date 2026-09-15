@@ -1,15 +1,12 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from .models import Student
 
 
 def student_list(request):
 
-    students = [
-        {"id": 1, "name": "Ram", "age": 20},
-        {"id": 2, "name": "Sita", "age": 21},
-        {"id": 3, "name": "Hari", "age": 19},
-    ]
+    students = Student.objects.all()
 
     return render(
         request,
@@ -24,5 +21,6 @@ def student_detail(request, student_id):
 
     return JsonResponse({
         "id": student_id,
-        "url": url
+        "url": url,
+        "Abhinay" : "Test"
     })
