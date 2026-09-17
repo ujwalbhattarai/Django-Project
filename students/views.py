@@ -14,7 +14,6 @@ def student_list(request):
         {"students": students}
     )
 
-
 def student_detail(request, student_id):
 
     url = reverse("students:student-detail", args=[student_id])
