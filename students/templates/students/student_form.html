@@ -1,0 +1,17 @@
+{% extends "students/base.html" %}
+
+{% block title %}
+    Student Form
+{% endblock %}
+
+{% block content %}
+
+    {% if student %}
+        <h2>Edit Student</h2>
+    {% else %}
+        <h2>Add Student</h2>
+    {% endif %}
+
+    <p>This form will be implemented in the next step.</p>
+
+{% endblock %}

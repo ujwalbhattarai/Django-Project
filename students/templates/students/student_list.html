@@ -4,13 +4,15 @@
     Students
 {% endblock %}
 
-
 {% block content %}
 
     <h2>Students</h2>
 
-    <p>Total students: {{ students|length }}</p>
+    <a href="{% url 'students:student-create' %}">
+        Add Student
+    </a>
 
+    <br><br>
 
     {% if students %}
 
@@ -21,10 +23,9 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Age</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-
 
             <tbody>
 
@@ -32,16 +33,36 @@
 
                     <tr>
 
-                        <td>{{ student.id }}</td>
-
-                        <td>{{ student.name|title }}</td>
-
-                        <td>{{ student.age }}</td>
+                        <td>
+                            {{ student.id }}
+                        </td>
 
                         <td>
+                            {{ student.name }}
+                        </td>
+
+                        <td>
+                            {{ student.age }}
+                        </td>
+
+                        <td>
+
                             <a href="{% url 'students:student-detail' student.id %}">
-                                View Details
+                                View
                             </a>
+
+                            |
+
+                            <a href="{% url 'students:student-update' student.id %}">
+                                Edit
+                            </a>
+
+                            |
+
+                            <a href="{% url 'students:student-delete' student.id %}">
+                                Delete
+                            </a>
+
                         </td>
 
                     </tr>
@@ -49,7 +70,7 @@
                 {% endfor %}
 
             </tbody>
-            
+
         </table>
 
     {% else %}
