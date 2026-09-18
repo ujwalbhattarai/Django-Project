@@ -8,12 +8,37 @@
 
     <h2>Student Details</h2>
 
-    <p><strong>ID:</strong> {{ student.id }}</p>
-    <p><strong>Name:</strong> {{ student.name }}</p>
-    <p><strong>Age:</strong> {{ student.age }}</p>
+    <p>
+        <strong>ID:</strong>
+        {{ student.id }}
+    </p>
+
+    <p>
+        <strong>Name:</strong>
+        {{ student.name }}
+    </p>
+
+    <p>
+        <strong>Age:</strong>
+        {{ student.age }}
+    </p>
+
+    <br>
 
     <a href="{% url 'students:student-list' %}">
         Back to Students
+    </a>
+
+    |
+
+    <a href="{% url 'students:student-update' student.id %}">
+        Edit Student
+    </a>
+
+    |
+
+    <a href="{% url 'students:student-delete' student.id %}">
+        Delete Student
     </a>
 
 {% endblock %}

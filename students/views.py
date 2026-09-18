@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Student
 
 
@@ -30,6 +30,19 @@ def student_detail(request, student_id):
 
 
 def student_create(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get("name")
+        age = request.POST.get("age")
+
+        Student.objects.create(
+            name=name,
+            age=age
+        )
+
+        return redirect("students:student-list")
+
     return render(
         request,
         "students/student_form.html"
