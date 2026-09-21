@@ -50,7 +50,17 @@ def student_create(request):
 
 
 def student_update(request, student_id):
+
     student = Student.objects.get(id=student_id)
+
+    if request.method == "POST":
+
+        student.name = request.POST.get("name")
+        student.age = request.POST.get("age")
+
+        student.save()
+
+        return redirect("students:student-list")
 
     return render(
         request,
@@ -60,8 +70,17 @@ def student_update(request, student_id):
 
 
 def student_delete(request, student_id):
+
     student = Student.objects.get(id=student_id)
 
-    return JsonResponse({
-        "message": f"Delete student {student.name}"
-    })
+    if request.method == "POST":
+
+        student.delete()
+
+        return redirect("students:student-list")
+
+    return render(
+        request,
+        "students/student_confirm_delete.html",
+        {"student": student}
+    )

@@ -1,12 +1,20 @@
 {% extends "students/base.html" %}
 
 {% block title %}
-    Add Student
+    {% if student %}
+        Edit Student
+    {% else %}
+        Add Student
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 
-    <h2>Add Student</h2>
+    {% if student %}
+        <h2>Edit Student</h2>
+    {% else %}
+        <h2>Add Student</h2>
+    {% endif %}
 
     <form method="POST">
 
@@ -20,6 +28,7 @@
             type="text"
             id="name"
             name="name"
+            value="{{ student.name|default:'' }}"
         >
 
         <br><br>
@@ -32,12 +41,17 @@
             type="number"
             id="age"
             name="age"
+            value="{{ student.age|default:'' }}"
         >
 
         <br><br>
 
         <button type="submit">
-            Add Student
+            {% if student %}
+                Update Student
+            {% else %}
+                Add Student
+            {% endif %}
         </button>
 
     </form>
