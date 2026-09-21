@@ -1,12 +1,6 @@
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import Student
-
-
-from django.http import JsonResponse
-from django.shortcuts import render
-
-from .models import Student
+from django.contrib import messages
 
 
 def student_list(request):
@@ -41,6 +35,11 @@ def student_create(request):
             age=age
         )
 
+        messages.success(
+            request,
+            "Student created successfully!"
+        )
+
         return redirect("students:student-list")
 
     return render(
@@ -60,6 +59,11 @@ def student_update(request, student_id):
 
         student.save()
 
+        messages.success(
+            request,
+            "Student updated successfully!"
+        )
+
         return redirect("students:student-list")
 
     return render(
@@ -76,6 +80,11 @@ def student_delete(request, student_id):
     if request.method == "POST":
 
         student.delete()
+
+        messages.success(
+            request,
+            "Student deleted successfully!"
+        )
 
         return redirect("students:student-list")
 

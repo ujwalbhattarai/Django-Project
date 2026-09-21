@@ -10,6 +10,18 @@
         <h1>Student Management System</h1>
     </header>
 
+    {% if messages %}
+
+    {% for message in messages %}
+
+        <p>
+            {{ message }}
+        </p>
+
+    {% endfor %}
+
+{% endif %}
+
     <main>
         {% block content %}
         {% endblock %}
