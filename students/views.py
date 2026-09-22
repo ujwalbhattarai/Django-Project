@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
 from django.contrib import messages
 
@@ -14,7 +14,10 @@ def student_list(request):
 
 
 def student_detail(request, student_id):
-    student = Student.objects.get(id=student_id)
+    student = get_object_or_404(
+        Student,
+        id=student_id
+    )
 
     return render(
         request,
@@ -50,7 +53,10 @@ def student_create(request):
 
 def student_update(request, student_id):
 
-    student = Student.objects.get(id=student_id)
+    student = get_object_or_404(
+    Student,
+    id=student_id
+)
 
     if request.method == "POST":
 
@@ -75,7 +81,10 @@ def student_update(request, student_id):
 
 def student_delete(request, student_id):
 
-    student = Student.objects.get(id=student_id)
+    student = get_object_or_404(
+    Student,
+    id=student_id
+)
 
     if request.method == "POST":
 
