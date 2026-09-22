@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
 from django.contrib import messages
+from .forms import StudentForm
 
 
 def student_list(request):
@@ -29,25 +30,25 @@ def student_detail(request, student_id):
 def student_create(request):
 
     if request.method == "POST":
+        form = StudentForm(request.POST)
 
-        name = request.POST.get("name")
-        age = request.POST.get("age")
+        if form.is_valid():
+            form.save()
 
-        Student.objects.create(
-            name=name,
-            age=age
-        )
+            messages.success(
+                request,
+                "Student created successfully!"
+            )
 
-        messages.success(
-            request,
-            "Student created successfully!"
-        )
+            return redirect("students:student-list")
 
-        return redirect("students:student-list")
+    else:
+        form = StudentForm()
 
     return render(
         request,
-        "students/student_form.html"
+        "students/student_form.html",
+        {"form": form}
     )
 
 
@@ -58,24 +59,17 @@ def student_update(request, student_id):
     id=student_id
 )
 
-    if request.method == "POST":
-
-        student.name = request.POST.get("name")
-        student.age = request.POST.get("age")
-
-        student.save()
-
-        messages.success(
-            request,
-            "Student updated successfully!"
-        )
-
-        return redirect("students:student-list")
+    form = StudentForm(
+        instance=student
+    )
 
     return render(
         request,
         "students/student_form.html",
-        {"student": student}
+        {
+            "form": form,
+            "student": student
+        }
     )
 
 
