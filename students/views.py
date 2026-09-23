@@ -55,13 +55,30 @@ def student_create(request):
 def student_update(request, student_id):
 
     student = get_object_or_404(
-    Student,
-    id=student_id
-)
-
-    form = StudentForm(
-        instance=student
+        Student,
+        id=student_id
     )
+
+    if request.method == "POST":
+        form = StudentForm(
+            request.POST,
+            instance=student
+        )
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                "Student updated successfully!"
+            )
+
+            return redirect("students:student-list")
+
+    else:
+        form = StudentForm(
+            instance=student
+        )
 
     return render(
         request,
