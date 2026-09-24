@@ -8,6 +8,19 @@
 
     <header>
         <h1>Student Management System</h1>
+
+        <nav>
+            <a href="{% url 'students:student-list' %}">
+                Students
+            </a>
+
+            |
+
+            <a href="{% url 'accounts:logout' %}">
+                Logout
+            </a>
+        </nav>
+
     </header>
 
     {% if messages %}
