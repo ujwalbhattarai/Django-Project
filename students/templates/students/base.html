@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>{% block title %}Student Management System{% endblock %}</title>
 </head>
@@ -7,7 +8,14 @@
 <body>
 
     <header>
+
         <h1>Student Management System</h1>
+
+        {% if request.user.is_authenticated %}
+
+        <p>
+            Welcome, {{ request.user.username }}!
+        </p>
 
         <nav>
             <a href="{% url 'students:student-list' %}">
@@ -21,19 +29,35 @@
             </a>
         </nav>
 
+        {% else %}
+
+        <nav>
+            <a href="{% url 'accounts:login' %}">
+                Login
+            </a>
+
+            |
+
+            <a href="{% url 'accounts:register' %}">
+                Register
+            </a>
+        </nav>
+
+        {% endif %}
+
     </header>
 
     {% if messages %}
 
     {% for message in messages %}
 
-        <p>
-            {{ message }}
-        </p>
+    <p>
+        {{ message }}
+    </p>
 
     {% endfor %}
 
-{% endif %}
+    {% endif %}
 
     <main>
         {% block content %}
@@ -41,4 +65,5 @@
     </main>
 
 </body>
+
 </html>

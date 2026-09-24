@@ -87,4 +87,4 @@ def user_logout(request):
 
     return redirect(
         "accounts:login"
-    )
+    ) 

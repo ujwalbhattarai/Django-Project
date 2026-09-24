@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
 from django.contrib import messages
 from .forms import StudentForm
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def student_list(request):
     students = Student.objects.all()
 
@@ -13,7 +14,7 @@ def student_list(request):
         {"students": students}
     )
 
-
+@login_required
 def student_detail(request, student_id):
     student = get_object_or_404(
         Student,
@@ -26,7 +27,7 @@ def student_detail(request, student_id):
         {"student": student}
     )
 
-
+@login_required
 def student_create(request):
 
     if request.method == "POST":
@@ -51,7 +52,7 @@ def student_create(request):
         {"form": form}
     )
 
-
+@login_required
 def student_update(request, student_id):
 
     student = get_object_or_404(
@@ -89,7 +90,7 @@ def student_update(request, student_id):
         }
     )
 
-
+@login_required
 def student_delete(request, student_id):
 
     student = get_object_or_404(
