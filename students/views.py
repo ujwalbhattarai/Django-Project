@@ -6,7 +6,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 
 @login_required
-@permission_required("students.view_student")
+@permission_required(
+    "students.view_student",
+    raise_exception=True
+)
 def student_list(request):
     students = Student.objects.all()
 
@@ -17,7 +20,10 @@ def student_list(request):
     )
 
 @login_required
-@permission_required("students.view_student")
+@permission_required(
+    "students.view_student",
+    raise_exception=True
+)
 def student_detail(request, student_id):
     student = get_object_or_404(
         Student,
@@ -31,7 +37,10 @@ def student_detail(request, student_id):
     )
 
 @login_required
-@permission_required("students.add_student")
+@permission_required(
+    "students.add_student",
+    raise_exception=True
+)
 def student_create(request):
 
     if request.method == "POST":
@@ -57,7 +66,10 @@ def student_create(request):
     )
 
 @login_required
-@permission_required("students.change_student")
+@permission_required(
+    "students.change_student",
+    raise_exception=True
+)
 def student_update(request, student_id):
 
     student = get_object_or_404(
@@ -96,7 +108,10 @@ def student_update(request, student_id):
     )
 
 @login_required
-@permission_required("students.delete_student")
+@permission_required(
+    "students.delete_student",
+    raise_exception=True
+)
 def student_delete(request, student_id):
 
     student = get_object_or_404(
