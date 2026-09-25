@@ -13,18 +13,22 @@
         <strong>{{ student.name }}</strong>?
     </p>
 
-    <form method="POST">
+    {% if perms.students.delete_student %}
 
-        {% csrf_token %}
+        <form method="post">
+
+            {% csrf_token %}
 
         <button type="submit">
-            Yes, Delete
+            Delete
         </button>
 
-        <a href="{% url 'students:student-detail' student.id %}">
-            Cancel
-        </a>
+        </form>
 
-    </form>
+    {% endif %}
+
+    <a href="{% url 'students:student-list' %}">
+        Cancel
+    </a>
 
 {% endblock %}

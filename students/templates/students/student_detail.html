@@ -31,14 +31,18 @@
 
     |
 
-    <a href="{% url 'students:student-update' student.id %}">
-        Edit Student
-    </a>
+    {% if perms.students.change_student %}
+        <a href="{% url 'students:student-update' student.id %}">
+            Edit
+        </a>
+    {% endif %}
 
     |
 
-    <a href="{% url 'students:student-delete' student.id %}">
-        Delete Student
-    </a>
+    {% if perms.students.delete_student %}
+        <a href="{% url 'students:student-delete' student.id %}">
+            Delete
+        </a>
+    {% endif %}
 
 {% endblock %}
