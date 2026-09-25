@@ -8,9 +8,11 @@
 
     <h2>Students</h2>
 
-    <a href="{% url 'students:student-create' %}">
-        Add Student
-    </a>
+    {% if perms.students.add_student %}
+        <a href="{% url 'students:student-create' %}">
+            Add Student
+        </a>
+    {% endif %}
 
     <br><br>
 
@@ -53,15 +55,19 @@
 
                             |
 
-                            <a href="{% url 'students:student-update' student.id %}">
-                                Edit
-                            </a>
+                            {% if perms.students.change_student %}
+                                <a href="{% url 'students:student-update' student.id %}">
+                                    Edit
+                                </a>
+                            {% endif %} 
 
                             |
 
-                            <a href="{% url 'students:student-delete' student.id %}">
-                                Delete
-                            </a>
+                            {% if perms.students.delete_student %}
+                                    <a href="{% url 'students:student-delete' student.id %}">
+                                    Delete
+                                </a>
+                            {% endif %}
 
                         </td>
 
