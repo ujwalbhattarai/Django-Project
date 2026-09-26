@@ -13,35 +13,35 @@
 
         {% if request.user.is_authenticated %}
 
-        <p>
-            Welcome, {{ request.user.username }}!
-        </p>
+            <p>
+                Welcome, {{ request.user.username }}!
+            </p>
 
-        <nav>
-            <a href="{% url 'students:student-list' %}">
-                Students
-            </a>
+            <nav>
+                <a href="{% url 'students:student-list' %}">
+                    Students
+                </a>
 
-            |
+                |
 
-            <a href="{% url 'accounts:logout' %}">
-                Logout
-            </a>
-        </nav>
+                <a href="{% url 'accounts:logout' %}">
+                    Logout
+                </a>
+            </nav>
 
         {% else %}
 
-        <nav>
-            <a href="{% url 'accounts:login' %}">
-                Login
-            </a>
+            <nav>
+                <a href="{% url 'accounts:login' %}">
+                    Login
+                </a>
 
-            |
+                |
 
-            <a href="{% url 'accounts:register' %}">
-                Register
-            </a>
-        </nav>
+                <a href="{% url 'accounts:register' %}">
+                    Register
+                </a>
+            </nav>
 
         {% endif %}
 
