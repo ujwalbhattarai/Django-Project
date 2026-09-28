@@ -4,9 +4,12 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Student
 from .serializers import StudentSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class StudentListAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
 
@@ -37,6 +40,8 @@ class StudentListAPIView(APIView):
 
 
 class StudentDetailAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
 
