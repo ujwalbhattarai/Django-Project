@@ -4,48 +4,25 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Student
 from .serializers import StudentSerializer
-from rest_framework.permissions import DjangoModelPermissions
 from .permissions import StudentModelPermission
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import ListAPIView
+from rest_framework.generics import CreateAPIView
 
 
-class StudentListAPIView(GenericAPIView):
+class StudentListAPIView(ListAPIView):
 
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
-    def get(self, request):
-
-        students = self.get_queryset()
-
-        serializer = self.get_serializer(
-            students,
-            many=True
-        )
-
-        return Response(
-            serializer.data,
-            status=status.HTTP_200_OK
-        )   
+    permission_classes = [StudentModelPermission]
 
     
-        def post(self, request):
+class StudentCreateAPIView(CreateAPIView):
 
-            serializer = StudentSerializer(data=request.data)
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
-            if serializer.is_valid():
-
-                serializer.save()
-
-                return Response(
-                    serializer.data,
-                    status=status.HTTP_201_CREATED
-                )
-
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
+    permission_classes = [StudentModelPermission]
 
 
 class StudentDetailAPIView(APIView):
