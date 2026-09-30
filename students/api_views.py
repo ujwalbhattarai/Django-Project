@@ -7,6 +7,8 @@ from .serializers import StudentSerializer
 from .permissions import StudentModelPermission
 from rest_framework.generics import ListAPIView
 from rest_framework.generics import CreateAPIView
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import UpdateAPIView
 
 
 class StudentListAPIView(ListAPIView):
@@ -25,64 +27,20 @@ class StudentCreateAPIView(CreateAPIView):
     permission_classes = [StudentModelPermission]
 
 
-class StudentDetailAPIView(APIView):
+class StudentRetrieveAPIView(RetrieveAPIView):
+
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
     permission_classes = [StudentModelPermission]
 
-    def get(self, request, pk):
 
-        student = get_object_or_404(Student, pk=pk)
+class StudentUpdateAPIView(UpdateAPIView):
 
-        serializer = StudentSerializer(student)
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-
-        student = get_object_or_404(Student, pk=pk)
-
-        serializer = StudentSerializer(
-            student,
-            data=request.data
-        )
-
-        if serializer.is_valid():
-
-            serializer.save()
-
-            return Response(
-                serializer.data,
-                status=status.HTTP_200_OK
-            )
-
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
-
-    def patch(self, request, pk):
-
-        student = get_object_or_404(Student, pk=pk)
-
-        serializer = StudentSerializer(
-            student,
-            data=request.data,
-            partial=True
-        )
-
-        if serializer.is_valid():
-
-            serializer.save()
-
-            return Response(
-                serializer.data,
-                status=status.HTTP_200_OK
-            )
-
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+    permission_classes = [StudentModelPermission]
 
     def delete(self, request, pk):
 
