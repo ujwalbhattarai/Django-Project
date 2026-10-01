@@ -1,16 +1,13 @@
-from django.urls import path
-from .api_views import StudentListCreateAPIView, StudentDetailAPIView
 
-urlpatterns = [
-    path(
-        "students/",
-        StudentListCreateAPIView.as_view(),
-        name="student-list-create",
-    ),
+from rest_framework.routers import DefaultRouter
+from .api_views import StudentViewSet
 
-    path(
-        "students/<int:pk>/",
-        StudentDetailAPIView.as_view(),
-        name="student-detail",
-    ),
-]
+router = DefaultRouter()
+
+router.register(
+    r"students",
+    StudentViewSet,
+    basename="student"
+)
+
+urlpatterns = router.urls
