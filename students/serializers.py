@@ -29,6 +29,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
 
 
 
+
 class StudentSerializer(serializers.ModelSerializer):
     enrollments = EnrollmentSerializer(
         many=True,
@@ -45,6 +46,25 @@ class StudentSerializer(serializers.ModelSerializer):
             "enrollments",
             "total_enrollments",
         ]
+        read_only_fields = [
+            "id",
+            "enrollments",
+            "total_enrollments",
+        ]
+
+    def validate_age(self, value):
+        if value < 0:
+            raise serializers.ValidationError(
+                "Age cannot be negative."
+            )
+        return value
+
+    def validate_name(self, value):
+        if not value.strip():
+            raise serializers.ValidationError(
+                "Name cannot be empty."
+            )
+        return value.strip()
 
     def get_total_enrollments(self, obj):
         return obj.enrollments.count()
