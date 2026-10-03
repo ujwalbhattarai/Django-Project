@@ -6,6 +6,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Student
 from .serializers import StudentSerializer
 from .permissions import StudentModelPermission
+from rest_framework.parsers import (
+    MultiPartParser,
+    FormParser,
+    JSONParser,
+)
 
 
 class StudentViewSet(ModelViewSet):
@@ -23,3 +28,9 @@ class StudentViewSet(ModelViewSet):
     search_fields = ["name"]
     ordering_fields = ["name", "age"]
     ordering = ["id"]
+
+    parser_classes = [
+        MultiPartParser,
+        FormParser,
+        JSONParser,
+    ]

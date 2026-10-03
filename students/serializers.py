@@ -43,6 +43,7 @@ class StudentSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "age",
+            "profile_image",
             "enrollments",
             "total_enrollments",
         ]
