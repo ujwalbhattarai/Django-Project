@@ -158,4 +158,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API for managing students, courses, and enrollments.",
     "VERSION": "1.0.0",
 }
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
     
