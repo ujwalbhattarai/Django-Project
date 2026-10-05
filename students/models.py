@@ -14,9 +14,14 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     profile_image = models.ImageField(
-    upload_to="student_images/",
-    blank=True,
-    null=True
+        upload_to="student_images/",
+        blank=True,
+        null=True
+    )
+    document = models.FileField(
+        upload_to="student_documents/",
+        blank=True,
+        null=True
     )
 
     def __str__(self):

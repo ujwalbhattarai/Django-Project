@@ -44,6 +44,7 @@ class StudentSerializer(serializers.ModelSerializer):
             "name",
             "age",
             "profile_image",
+            "document",
             "enrollments",
             "total_enrollments",
         ]
@@ -69,6 +70,27 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_total_enrollments(self, obj):
         return obj.enrollments.count()
+
+    def validate_profile_image(self, value):
+        allowed_types = [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+        ]
+
+        if value.content_type not in allowed_types:
+            raise serializers.ValidationError(
+                "Only JPG, PNG, and WebP images are allowed."
+            )
+
+        max_size = 2 * 1024 * 1024  # 2 MB
+
+        if value.size > max_size:
+            raise serializers.ValidationError(
+                "Image size cannot exceed 2 MB."
+            )
+
+        return value
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
